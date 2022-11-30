@@ -1,0 +1,146 @@
+body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: Roboto;
+  text-align: center;
+}
+
+:root {
+  --green: #70ad46;
+  --blue: #5a9bd5;
+  --yellow: #ffe699;
+  --greenL: #c5e0b5;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1 {
+  color: var(--green);
+  border: 2px solid #6cb04b;
+  padding: 10px 10px 10px;
+}
+
+table,
+tr {
+  border: 1px solid var(--green);
+  border-collapse: collapse;
+  padding: 30px;
+  width: 1000px;
+}
+
+table {
+  margin-top: 30px;
+}
+
+td,
+th {
+  font-size: 24px;
+  padding: 30px;
+}
+
+thead {
+  background-color: var(--green);
+}
+
+.btnActivePage {
+  border: 1px solid var(--blue);
+  border-radius: 100%;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+.btnAction {
+  margin: 10px;
+  font-size: 30px;
+  border: none;
+}
+
+.methodsBar {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  font-size: 20px;
+  position: relative;
+}
+
+.btnAdd {
+  width: 120px;
+  border: 1px solid var(--blue);
+  font-size: 20px;
+}
+
+.btnUpdate {
+  width: 120px;
+  background-color: var(--yellow);
+  border: 1px solid var(--blue);
+  font-size: 20px;
+}
+
+.form-input {
+  width: 150px;
+  height: 50px;
+  padding: 0px 15px;
+  border: 1px solid var(--blue);
+  border-radius: 10px;
+  font-size: 18px;
+  outline: var(--blue);
+}
+
+.form-input:focus {
+  border-color: var(--green);
+}
+
+.form-label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 70px;
+  user-select: none;
+  color: #999;
+  pointer-events: none;
+  transition: all 0.25s linear;
+}
+
+.form-input:not(:placeholder-shown) + .form-label,
+.form-input:focus + form-label {
+  top: -4px;
+  background-color: #fff;
+  color: var(--green);
+}
+
+.loader {
+  position: relative;
+  margin: auto;
+  margin-top: 15%;
+  /* margin-left: 500px; */
+
+  border: 16px solid #f4f4f4;
+  border-top: 16px solid var(--blue);
+  border-bottom: 16px solid var(--blue);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: load 2s linear infinite;
+}
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.process {
+  position: absolute;
+  top: 29.5%;
+  left: 48.7%;
+  font-size: 2em;
+  text-align: center;
+}
