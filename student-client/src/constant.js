@@ -1,3 +1,11 @@
+export const HTTP_READ = "GET";
+export const HTTP_CREATE = "POST";
+export const HTTP_UPDATE = "PUT";
+export const HTTP_DELETE = "DELETE";
+
+export const DOMAIN = "http://localhost:5000";
+export const HTTP_HEADER_JSON = { "Content-Type": "Application/json" };
+
 export const LIMIT = 3;
 
 export const PAGINATION_STUDENT_REQUEST = "PAGINATION_STUDENT_REQUEST";

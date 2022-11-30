@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import UpdateStudentComponent from "./UpdateStudentComponent";
 import "./StudentComponent.css";
 
 export default class StudentComponent extends Component {
@@ -30,7 +31,7 @@ export default class StudentComponent extends Component {
 
   handleLoading = () => {
     let process = 0;
-    let newInterval = setInterval(frame, 99);
+    let newInterval = setInterval(frame, 50.5);
     function frame() {
       if (process >= 99) {
         clearInterval(newInterval);
@@ -218,7 +219,8 @@ export default class StudentComponent extends Component {
             >
               THÊM
             </button>
-            <button
+            <UpdateStudentComponent {...this.props} {...this.state} />
+            {/* <button
               className="btnUpdate"
               onClick={() => {
                 if (
@@ -235,7 +237,7 @@ export default class StudentComponent extends Component {
               }}
             >
               UPDATE
-            </button>
+            </button> */}
           </div>
         </div>
 

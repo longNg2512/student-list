@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
     textSearchName: state.dataStudent.textSearchName,
     textSearchGender: state.dataStudent.textSearchGender,
     isLoading: state.dataStudent.isLoading,
+    message: state.dataStudent.message,
   };
 };
 

@@ -8,6 +8,7 @@ const DEFAULT_STATE = {
   activePage: 0,
   totalPage: 0,
   skip: 0,
+  message: "",
 };
 
 const studentReducer = (state = DEFAULT_STATE, action) => {
@@ -49,12 +50,20 @@ const studentReducer = (state = DEFAULT_STATE, action) => {
       };
     case types.DELETE_STUDENT_SUCCESS:
     case types.ADD_STUDENT_SUCCESS:
+      // case types.UPDATE_STUDENT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        dataFetched: false,
+        error: false,
+      };
     case types.UPDATE_STUDENT_SUCCESS:
       return {
         ...state,
         isLoading: false,
         dataFetched: false,
         error: false,
+        message: action.payload.message,
       };
     case types.PAGINATION_STUDENT_FAILURE:
     case types.DELETE_STUDENT_FAILURE:
