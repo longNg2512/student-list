@@ -44,11 +44,17 @@ export const paginationStudent = async (req, res) => {
     const totalStudent = await studentModel.countDocuments();
     const totalPage = Math.ceil(totalStudent / limit);
     const listStudent = await studentModel.find().skip(skip).limit(limit);
+    const totalListStudent = await studentModel.find();
+    const studentNameArr = [];
+    totalListStudent.map((student) => {
+      studentNameArr.push(student.name);
+    });
     res.send({
       listStudent,
       activePage,
       totalPage,
       skip,
+      studentNameArr,
       message: "Pagination Student Success!",
     });
   } catch (error) {
@@ -126,5 +132,17 @@ export const searchPaginationStudent = async (req, res) => {
     }
   } catch (error) {
     res.send({ error, message: "Search Pagination Student Failure!" });
+  }
+};
+
+export const searchStudent = async (req, res) => {
+  try {
+    const textSearchName = req.query.textSearchName;
+    const listStudent = await studentModel.find({
+      name: { $regex: textSearchName, $options: "i" },
+    });
+    res.send({ listStudent, message: "Search Student Success!" });
+  } catch (error) {
+    res.send({ error, message: "Search  Student Failure!" });
   }
 };

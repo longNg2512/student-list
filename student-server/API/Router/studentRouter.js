@@ -8,5 +8,6 @@ router.get("/student/search", studentController.searchPaginationStudent);
 router.post("/student", studentController.addStudent);
 router.put("/student/:id", studentController.updateStudent);
 router.delete("/student/:id", studentController.deleteStudent);
+router.get("/student/searchBox", studentController.searchStudent);
 
 export default router;

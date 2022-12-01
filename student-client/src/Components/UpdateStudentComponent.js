@@ -9,8 +9,8 @@ export default class UpdateStudentComponent extends Component {
 
   componentDidUpdate() {
     if (
-      this.props.id !== this.state.id &&
-      this.props.name !== this.state.name &&
+      this.props.id !== this.state.id ||
+      this.props.name !== this.state.name ||
       this.props.gender !== this.state.gender
     ) {
       this.setState({
@@ -37,6 +37,7 @@ export default class UpdateStudentComponent extends Component {
                 name: this.state.name,
                 gender: this.state.gender,
               });
+            this.props.handleClearState();
           }}
         >
           UPDATE

@@ -136,29 +136,64 @@ export default class StudentComponent extends Component {
           }}
         >
           <div className="methodsBar" id="methodsBar">
-            <input
-              className="form-input"
-              type={"text"}
-              placeholder=" "
-              onChange={(e) => {
-                this.setState({ name: e.target.value });
-              }}
-              value={this.state.name}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  if (this.state.name === "") {
-                    this.props.paginationStudent(1);
-                  } else {
+            <div className="autocomplete">
+              <input
+                id="myInput"
+                className="form-input"
+                type={"text"}
+                placeholder=" "
+                onChange={(e) => {
+                  this.setState({ name: e.target.value });
+                  if (e.target.value) {
+                    this.props.searchStudent({
+                      textSearchName: e.target.value,
+                    });
+                  }
+                }}
+                value={this.state.name}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && this.state.name !== "") {
                     this.props.searchPaginationStudent({
                       textSearchName: this.state.name,
                       textSearchGender: this.state.gender,
                       activePage: 1,
                     });
+                    if (this.state.name === "") {
+                      this.props.paginationStudent(1);
+                    } else {
+                      this.props.searchPaginationStudent({
+                        textSearchName: this.state.name,
+                        textSearchGender: this.state.gender,
+                        activePage: 1,
+                      });
+                    }
                   }
-                }
-              }}
-            />
-            <label className="form-label">Name</label>
+                }}
+              />
+              <label className="form-label">Name</label>
+
+              {this.props.listSearchStudent.map((student) => {
+                return (
+                  <ul
+                    key={student._id}
+                    className="list-items"
+                    style={{
+                      display: this.state.name === "" ? "none" : "flex",
+                    }}
+                    onClick={() => {
+                      this.props.searchPaginationStudent({
+                        textSearchName: student.name,
+                        textSearchGender: student.gender,
+                        activePage: 1,
+                      });
+                      this.handleClearState();
+                    }}
+                  >
+                    {student.name}
+                  </ul>
+                );
+              })}
+            </div>
             <label>
               <input
                 className="male"
@@ -219,75 +254,62 @@ export default class StudentComponent extends Component {
             >
               THÊM
             </button>
-            <UpdateStudentComponent {...this.props} {...this.state} />
-            {/* <button
-              className="btnUpdate"
-              onClick={() => {
-                if (
-                  this.state.name !== "" &&
-                  this.state.gender !== "" &&
-                  this.state.id !== ""
-                )
-                  this.props.updateStudent({
-                    id: this.state.id,
-                    name: this.state.name,
-                    gender: this.state.gender,
-                  });
-                this.handleClearState();
-              }}
-            >
-              UPDATE
-            </button> */}
+            <UpdateStudentComponent
+              id={this.state.id}
+              name={this.state.name}
+              gender={this.state.gender}
+              updateStudent={this.props.updateStudent}
+              handleClearState={this.handleClearState}
+            />
           </div>
-        </div>
-
-        <div
-          style={{
-            opacity: this.props.isLoading === false ? "100%" : "0%",
-          }}
-        >
-          <table>
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>NAME</th>
-                <th>GIỚI TÍNH</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>{dataStudent}</tbody>
-          </table>
-
-          <div>
-            {totalPageArray.map((item, index) => {
-              return (
-                <button
-                  className="btnActivePage"
-                  key={index}
-                  style={{
-                    backgroundColor:
-                      item === this.props.activePage ? null : "#a8d18d",
-                  }}
-                  onClick={() => {
-                    if (
-                      (this.props.textSearchName ||
-                        this.props.textSearchGender) &&
-                      item !== this.props.activePage
-                    ) {
-                      this.props.searchPaginationStudent({
-                        textSearchName: this.state.name,
-                        textSearchGender: this.state.textSearchGender,
-                        activePage: item,
-                      });
-                    } else if (item !== this.props.activePage) {
-                      this.props.paginationStudent(item);
-                    }
-                  }}
-                >
-                  {item}
-                </button>
-              );
-            })}
+          <div
+            className="student-table"
+            style={{
+              opacity: this.props.isLoading === false ? "100%" : "0%",
+            }}
+          >
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>NAME</th>
+                    <th>GIỚI TÍNH</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>{dataStudent}</tbody>
+              </table>
+              {totalPageArray.map((item, index) => {
+                return (
+                  <button
+                    className="btnActivePage"
+                    key={index}
+                    style={{
+                      backgroundColor:
+                        item === this.props.activePage ? null : "#a8d18d",
+                    }}
+                    onClick={() => {
+                      if (
+                        (this.props.textSearchName ||
+                          this.props.textSearchGender) &&
+                        item !== this.props.activePage
+                      ) {
+                        this.props.searchPaginationStudent({
+                          textSearchName: this.state.name,
+                          textSearchGender: this.state.textSearchGender,
+                          activePage: item,
+                        });
+                      } else if (item !== this.props.activePage) {
+                        this.props.paginationStudent(item);
+                      }
+                    }}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

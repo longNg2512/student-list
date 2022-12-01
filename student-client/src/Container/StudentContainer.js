@@ -26,6 +26,8 @@ const mapStateToProps = (state) => {
     textSearchGender: state.dataStudent.textSearchGender,
     isLoading: state.dataStudent.isLoading,
     message: state.dataStudent.message,
+    studentNameArr: state.dataStudent.studentNameArr,
+    listSearchStudent: state.dataStudent.listSearchStudent,
   };
 };
 
@@ -45,6 +47,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateStudent: (data) => {
       dispatch(actions.updateStudentRequest(data));
+    },
+    searchStudent: (data) => {
+      dispatch(actions.searchStudentRequest(data));
     },
   };
 };

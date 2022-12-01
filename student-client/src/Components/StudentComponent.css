@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   justify-content: space-around;
@@ -102,7 +106,7 @@ thead {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 70px;
+  left: 3.5em;
   user-select: none;
   color: #999;
   pointer-events: none;
@@ -141,8 +145,27 @@ thead {
 
 .process {
   position: absolute;
-  top: 29.5%;
-  left: 48.7%;
-  font-size: 2em;
+  top: 29%;
+  left: 48.9%;
+  font-size: 1.5em;
   text-align: center;
+}
+
+ul {
+  list-style: none;
+  font-size: 18px;
+}
+/* .list {
+  width: 100%;
+  background-color: var(--blue);
+  border-radius: 0 0 5px 5px;
+} */
+.list-items {
+  padding: 5px 5px;
+}
+.list-items:hover {
+  background-color: var(--greenL);
+}
+
+.student-table{
 }

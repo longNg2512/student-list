@@ -2,6 +2,7 @@ import * as types from "../constant";
 
 const DEFAULT_STATE = {
   isLoading: false,
+  isLoadingSearchBox: false,
   dataFetched: false,
   error: false,
   listStudent: [],
@@ -9,6 +10,8 @@ const DEFAULT_STATE = {
   totalPage: 0,
   skip: 0,
   message: "",
+  studentNameArr: [],
+  listSearchStudent: [],
 };
 
 const studentReducer = (state = DEFAULT_STATE, action) => {
@@ -24,6 +27,13 @@ const studentReducer = (state = DEFAULT_STATE, action) => {
         dataFetched: false,
         error: false,
       };
+    case types.SEARCH_STUDENT_REQUEST:
+      return {
+        ...state,
+        isLoadingSearchBox: true,
+        dataFetched: false,
+        error: false,
+      };
     case types.PAGINATION_STUDENT_SUCCESS:
       return {
         ...state,
@@ -34,6 +44,7 @@ const studentReducer = (state = DEFAULT_STATE, action) => {
         activePage: action.payload.activePage,
         totalPage: action.payload.totalPage,
         skip: action.payload.skip,
+        studentNameArr: action.payload.studentNameArr,
       };
     case types.SEARCH_PAGINATION_STUDENT_SUCCESS:
       return {
@@ -50,25 +61,26 @@ const studentReducer = (state = DEFAULT_STATE, action) => {
       };
     case types.DELETE_STUDENT_SUCCESS:
     case types.ADD_STUDENT_SUCCESS:
-      // case types.UPDATE_STUDENT_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        dataFetched: false,
-        error: false,
-      };
     case types.UPDATE_STUDENT_SUCCESS:
       return {
         ...state,
         isLoading: false,
         dataFetched: false,
         error: false,
-        message: action.payload.message,
+      };
+    case types.SEARCH_STUDENT_SUCCESS:
+      return {
+        ...state,
+        listSearchStudent: action.payload.listSearchStudent,
+        isLoading: false,
+        dataFetched: true,
+        error: false,
       };
     case types.PAGINATION_STUDENT_FAILURE:
     case types.DELETE_STUDENT_FAILURE:
     case types.ADD_STUDENT_FAILURE:
     case types.UPDATE_STUDENT_FAILURE:
+    case types.SEARCH_STUDENT_FAILURE:
       return {
         ...state,
         isLoading: false,

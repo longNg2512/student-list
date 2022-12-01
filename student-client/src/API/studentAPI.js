@@ -15,6 +15,7 @@ export default function studentAPI(method, path, data) {
   }
   return new Promise((resolve, reject) => {
     const url = constants.DOMAIN + path;
+    console.log(url);
     fetch(url, objFetch)
       .then((response) => response.json())
       .then((response) => resolve(response))

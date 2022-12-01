@@ -104,3 +104,24 @@ export function updateStudentFailure(payload) {
     payload,
   };
 }
+
+export function searchStudentRequest(payload) {
+  return {
+    type: types.SEARCH_STUDENT_REQUEST,
+    payload,
+  };
+}
+
+export function searchStudentSuccess(payload) {
+  return {
+    type: types.SEARCH_STUDENT_SUCCESS,
+    payload,
+  };
+}
+
+export function searchStudentFailure(payload) {
+  return {
+    type: types.SEARCH_STUDENT_FAILURE,
+    payload,
+  };
+}

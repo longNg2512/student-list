@@ -15,6 +15,7 @@ function* handlePaginationStudent(action) {
         activePage: response.activePage,
         totalPage: response.totalPage,
         skip: response.skip,
+        studentNameArr: response.studentNameArr,
       })
     );
   } catch (error) {
@@ -40,7 +41,7 @@ function* handleSearchPaginationStudent(action) {
   try {
     const response = yield studentAPI(
       constants.HTTP_READ,
-      `/student/search?textSearchName=${action.payload.textSearchName}&textSearchGender=${action.payload.textSearchGender}&activePage=${action.payload.activePage}&limit=${constants.HTTP_READ}`
+      `/student/search?textSearchName=${action.payload.textSearchName}&textSearchGender=${action.payload.textSearchGender}&activePage=${action.payload.activePage}&limit=${constants.LIMIT}`
     );
     yield put(
       actions.searchPaginationStudentSuccess({
@@ -67,7 +68,6 @@ function* handelAddStudent(action) {
     yield new Promise((resolve, reject) => {
       setTimeout(() => resolve(response), 5000);
     });
-
     yield put(actions.addStudentSuccess());
     const res = yield studentAPI(
       constants.HTTP_READ,
@@ -86,10 +86,24 @@ function* handleUpdateStudent(action) {
       `/student/${action.payload.id}`,
       action.payload
     );
-    yield put(actions.updateStudentSuccess({message: response.message}));
+    yield put(actions.updateStudentSuccess({ message: response.message }));
     yield put(actions.paginationStudentRequest(1));
   } catch (error) {
     yield put(actions.updateStudentFailure(error));
+  }
+}
+
+function* handleSearchStudent(action) {
+  try {
+    const response = yield studentAPI(
+      constants.HTTP_READ,
+      `/student/searchBox?textSearchName=${action.payload.textSearchName}`
+    );
+    yield put(
+      actions.searchStudentSuccess({ listSearchStudent: response.listStudent })
+    );
+  } catch (error) {
+    yield put(actions.searchStudentFailure(error));
   }
 }
 
@@ -102,6 +116,7 @@ const studentSaga = [
   ),
   takeEvery(constants.ADD_STUDENT_REQUEST, handelAddStudent),
   takeEvery(constants.UPDATE_STUDENT_REQUEST, handleUpdateStudent),
+  takeEvery(constants.SEARCH_STUDENT_REQUEST, handleSearchStudent),
 ];
 
 export default studentSaga;
